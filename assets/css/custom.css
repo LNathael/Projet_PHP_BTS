@@ -1,0 +1,287 @@
+/* Import de Bulma (optionnel, si déjà chargé dans <head>, ne pas inclure cette ligne) */
+@import url("https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css");
+
+/* ===============================
+   VARIABLES CSS PERSONNALISÉES
+   =============================== */
+:root {
+    --primary-color: #ffffff; /* Fond principal (blanc) */
+    --secondary-color: #3273dc; /* Couleur secondaire Bulma */
+    --accent-color: #ff3860; /* Couleur d'accentuation */
+    --text-light: #4a4a4a; /* Texte clair */
+    --text-dark: #363636; /* Texte sombre */
+    --gradient: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%); /* Dégradé clair */
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre douce */
+    --transition: all 0.3s ease; /* Transition fluide */
+    --bulma-primary: #3273dc; /* Couleur primaire Bulma */
+    --bulma-danger: #ff3860; /* Couleur danger Bulma */
+}
+/* ==================================================================
+   STYLES GÉNÉRAUX
+   ================================================================== */
+/* Animation de chargement */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.loading-spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3273dc; /* Couleur primaire Bulma */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+.is-hidden {
+    display: none !important;
+}
+
+/* Corps de la page */
+body {
+    background-color: var(--primary-color);
+    color: var(--text-dark);
+    font-family: Arial, sans-serif;
+}
+.navbar-dropdown {
+    display: none;
+}
+
+.navbar-dropdown.is-active {
+    display: block;
+}
+/* Style pour les produits en rupture de stock */
+.product-card.out-of-stock {
+    filter: grayscale(100%) blur(2px); /* Applique un effet de flou et de désaturation */
+    pointer-events: none; /* Désactive les clics */
+    opacity: 0.6; /* Réduit l'opacité */
+}
+
+.product-card.out-of-stock .product-title,
+.product-card.out-of-stock .product-description,
+.product-card.out-of-stock .product-price {
+    text-decoration: line-through; /* Barre le texte */
+    color: #999; /* Change la couleur du texte */
+}
+
+.product-card.out-of-stock .out-of-stock {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Détails de l'image */
+   /* Réduction de la taille des images */
+.detail-image {
+    max-width: 200px; /* Largeur maximale */
+    max-height: 200px; /* Hauteur maximale */
+    width: auto; /* Ajuste automatiquement la largeur */
+    height: auto; /* Ajuste automatiquement la hauteur */
+    margin-top: 10px;
+    border-radius: 8px; /* Coins arrondis (optionnel) */
+}
+/* ===============================
+TEXT contour shadow 
+===============================*/
+
+.text-outline {
+    text-shadow: 
+        -2px -2px 0 black,  
+         2px -2px 0 black,
+        -2px  2px 0 black,
+         2px  2px 0 black;
+}
+
+/* ===============================
+   BOUTONS
+   =============================== */
+.button.is-primary {
+    background-color: var(--bulma-primary);
+    border-color: var(--bulma-primary);
+    color: white;
+    transition: var(--transition);
+}
+.button.is-primary:hover {
+    background-color: darken(var(--bulma-primary), 10%);
+    filter: brightness(90%);
+}
+
+/* ===============================
+   NAVBAR
+   =============================== */
+/* Agrandir la hauteur de l'en-tête */
+.navbar {
+    height: 100px; /* Augmentez la hauteur de l'en-tête */
+    display: flex;
+    align-items: center; /* Centre verticalement le contenu */
+    justify-content: space-between; /* Espace entre les éléments */
+    padding: 0 20px; /* Ajoute un espacement horizontal */
+}
+
+/* Ajuster la taille du logo */
+.brand-logo {
+    height: 80px; /* Hauteur du logo */
+    width: auto; /* Ajuste automatiquement la largeur */
+}
+
+/* Ajuster les éléments de la barre de navigation */
+.navbar-item {
+    font-size: 1.2rem; /* Augmente la taille du texte */
+    font-weight: bold; /* Met le texte en gras */
+}
+/* ===============================
+   CAROUSEL
+   =============================== */
+/* Styles pour les carrousels */
+
+/* Images des produits */
+.produits-swiper .product-card img,
+.recettes-swiper .recipe-card img {
+    width: 100%; /* S'adapte à la largeur du conteneur */
+    height: 100px; /* Taille réduite pour un aperçu plus petit */
+    object-fit: cover; /* Recadre l'image pour qu'elle remplisse le conteneur */
+    border-radius: 8px; /* Coins arrondis */
+}
+
+/* Titres des produits et recettes */
+.produits-swiper .product-title,
+.recettes-swiper .recipe-title {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Flèches de navigation */
+.swiper-button-next,
+.swiper-button-prev {
+    color: #3273dc; /* Couleur des flèches */
+    background: rgba(255, 255, 255, 0.8); /* Fond blanc semi-transparent */
+    border-radius: 50%; /* Forme circulaire */
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre douce */
+    transition: all 0.3s ease; /* Transition fluide */
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    background: #3273dc; /* Change la couleur au survol */
+    color: #fff; /* Couleur des flèches au survol */
+}
+
+.swiper-pagination-bullet-active {
+    background: #3273dc; /* Couleur des points actifs */
+    opacity: 1; /* Point actif complètement opaque */
+    transform: scale(1.2); /* Agrandit légèrement le point actif */
+}
+/* ===============================
+   FOOTER
+   =============================== */
+.footer {
+    background-color: var(--primary-color);
+    color: var(--text-dark);
+    padding: 4rem 0 2rem;
+    margin-top: 4rem;
+    position: relative;
+    overflow: hidden;
+}
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient);
+}
+.footer .title.is-4::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 2px;
+    background: var(--secondary-color);
+    margin-top: 8px;
+}
+
+/* ===============================
+   CARTES
+   =============================== */
+.card {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    background: var(--primary-color);
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+.card-image img {
+    height: 250px;
+    object-fit: cover;
+}
+
+/* ===============================
+   FORMULAIRES
+   =============================== */
+.input, .textarea {
+    border-radius: 8px;
+    transition: var(--transition);
+    background: var(--primary-color);
+    color: var(--text-dark);
+    border: 1px solid #ccc;
+}
+.input:focus, .textarea:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 2px rgba(50, 115, 220, 0.2);
+}
+
+/* ===============================
+   ANIMATIONS
+   =============================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* ===============================
+   RESPONSIVE DESIGN
+   =============================== */
+@media screen and (max-width: 768px) {
+    .container, .hero-body, .section {
+        padding: 2rem 1rem;
+    }
+}
