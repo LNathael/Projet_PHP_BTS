@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['email'] = $email;
 
                 header("Location: Acceuil/accueil.php");
-                exit();
+                exit;
             }
         } catch (PDOException $e) {
             $erreurs[] = "Erreur lors de l'inscription : " . $e->getMessage();

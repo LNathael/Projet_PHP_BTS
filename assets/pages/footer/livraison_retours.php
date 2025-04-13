@@ -16,7 +16,7 @@
             Vous avez 14 jours pour retourner un produit non utilisé dans son emballage d'origine. Les frais de retour sont à votre charge, sauf en cas de produit défectueux ou d'erreur de notre part.
         </p>
         <p>
-            <strong>Contactez-nous</strong> à <a href="mailto:support@projetachat.com">support@projetachat.com</a> pour initier un retour.
+            <strong>Contactez-nous</strong> à <a href="mailto:nathael.lebihan12102005@gmail.com">nathael.lebihan12102005@gmail.com</a> pour initier un retour.
         </p>
     </section>
 </main>

@@ -38,7 +38,12 @@ $selected_video = $videos[array_rand($videos)];
                 <h2 class="subtitle has-text-white">
                     Rejoins-nous et commence ton voyage vers une meilleure santé et forme physique.
                 </h2>
-                <a href="../Connexion/inscription.php" class="button is-medium is-info is-dark is-rounded">Inscription rapide</a>
+                <div class="buttons is-centered">
+                    <a href="../Connexion/connexion.php" class="button is-medium is-primary is-light is-rounded">Se connecter</a>
+                </div>
+                <div class="buttons is-centered">
+                    <a href="../Connexion/inscription.php" class="button is-medium is-info is-dark is-rounded">Inscription rapide</a>
+                </div>
             </div>
         </div>
     </section>

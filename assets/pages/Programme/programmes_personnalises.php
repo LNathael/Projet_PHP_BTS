@@ -3,7 +3,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 if (!isset($_SESSION['user_id'])) {
-    header('Location: connexion.php');
+    header('Location: ../Connexion/connexion.php');
     exit;
 }
 
@@ -158,7 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-
+<?php include '../includes/header.php'; ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -168,8 +168,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
 <body>
-    <?php include '../includes/header.php'; ?>
-
     <main class="container">
         <section class="section">
             <h1 class="title">Créer votre Programme Personnalisé</h1>

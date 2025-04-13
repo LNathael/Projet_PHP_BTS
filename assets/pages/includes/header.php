@@ -1,8 +1,6 @@
 <?php 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
 include '../includes/session_start.php';
+
 ////////////////////////////////////////////////////////////////////////
 if (isset($_SESSION['user_id'])) {
     $stmt = $pdo->prepare("SELECT role FROM utilisateurs WHERE id_utilisateur = ?");
@@ -33,9 +31,13 @@ if (isset($_POST['supprimer_commande'])) {
         $stmt = $pdo->prepare("DELETE FROM details_commande WHERE id_commande = ?");
         $stmt->execute([$id_commande]);
 
-        echo "<div class='notification is-success'>Commande supprimée avec succès.</div>";
-    } else {
-        echo "<div class='notification is-danger'>Impossible de supprimer cette commande.</div>";
+        $_SESSION['notification'] = "Commande supprimée avec succès.";
+        header('Location: commandes.php');
+        exit;
+        } else {
+        $_SESSION['notification'] = "Impossible de supprimer cette commande.";
+        header('Location: commandes.php');
+        exit;
     }
 }
 ?>
@@ -49,48 +51,33 @@ if (isset($_POST['supprimer_commande'])) {
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles principaux -->
+    <link rel="stylesheet" href="../../css/custom.css">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Bulma CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-
-    <!-- Bulma-carousel CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/css/bulma-carousel.min.css">
-
-    <!-- Bulma-carousel JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/js/bulma-carousel.min.js"></script>
-
-    <!-- Styles principaux -->
-    <link rel="stylesheet" href="../../css/custom.css">
-
     <!-- Favicon et Manifest -->
-    <link rel="shortcut icon" type="image/png" href="../../img/logo.png" />
-    <link rel="manifest" href="../../json/manifest.json">
-
-    <link rel="icon" type="image/png" href="../../img/logo.png">
-
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="icon" href="../../img/favicon-16x16.png" type="image/png">
+    <link rel="apple-touch-icon" href="../../img/favicon-32x32.png" sizes="32x32">
+    <link rel="apple-touch-icon" href="../../img/favicon-192x192.png" sizes="192x192">
+    <link rel="manifest" href="../../manifest.json">
+    <meta name="theme-color" content="#ffffff">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="NutriStrong">
-    <meta name="application-name" content="NutriStrong">
-    <meta name="description" content="NutriStrong - Votre partenaire pour une vie saine.">
-    <meta name="theme-color" content="#00d1b2">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">   
-    <meta property="og:image" content="http://localhost/projet_PHP_/assets/img/logo.png">
-    <meta name="twitter:image" content="http://localhost/projet_PHP_/assets/img/logo.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
 
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <!-- Scripts -->
-    <script src="../../js/theme-toggle.js"></script>
-    <!-- Custom JS -->
     <script src="../../js/app.js" defer></script>
-    
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/service-worker.js')
@@ -107,18 +94,23 @@ if (isset($_POST['supprimer_commande'])) {
 <header class="site-header">
     <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
         <div class="container">
+            <!-- Logo et menu burger -->
             <div class="navbar-brand">
-            <a class="navbar-item" href="../Acceuil/accueil.php" style="padding: 0;">
-                <img src="../../img/logo.png" alt="Logo" class="brand-logo" style="height: 100px; width: auto; margin: 10px;">
-            </a>
+                <a class="navbar-item" href="<?= isset($_SESSION['user_id']) ? '../Acceuil/accueil.php' : '../Acceuil/index.php'; ?>" style="padding: 0;">
+                    <!-- Logo SVG -->
+                    <img src="../../img/logo-150px.png" alt="NutriStrong Logo">
+  
+                </a>
 
+                <!-- Menu burger pour mobile -->
                 <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                 </a>
             </div>
-
+            
+            <!-- Menu principal -->
             <div id="navMenu" class="navbar-menu">
                 <div class="navbar-start">
                     <a href="../Acceuil/index.php" class="navbar-item">Accueil</a>
@@ -214,7 +206,17 @@ if (isset($_POST['supprimer_commande'])) {
                 dropdown.classList.remove('is-hoverable');
             });
         });
-    });
+        const burger = document.querySelector('.navbar-burger');
+        const menu = document.getElementById('navMenu');
+
+        if (burger && menu) {
+            burger.addEventListener('click', () => {
+                burger.classList.toggle('is-active');
+                menu.classList.toggle('is-active');
+            });
+        }
+});
+
 </script>
 </body>
 </html>

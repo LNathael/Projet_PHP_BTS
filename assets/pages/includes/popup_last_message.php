@@ -25,7 +25,7 @@ if (isset($_SESSION['user_id'])) {
         if ($dernier_message): ?>
 
             <div id="popup-message" class="popup">
-                <a href="../Salon/salons.php?id_salon=<?= urlencode($dernier_message['id_salon']); ?>" class="popup-content">
+                <a href="../Salon/chat.php?salon=<?= urlencode($dernier_message['id_salon']); ?>" class="popup-content">
                     <p><strong>Dernier message dans #<?= htmlspecialchars($dernier_message['nom_salon']); ?></strong></p>
                     <p><?= htmlspecialchars($dernier_message['contenu']); ?></p>
                 </a>
@@ -63,7 +63,7 @@ if (isset($_SESSION['user_id'])) {
                     if (popup) popup.style.display = 'none';
                 }, 5000);
             </script>
-            <audio id="notif-sound" src="./../../sounds/notification.mp3" preload="auto"></audio>
+            <audio id="notif-sound" src="../../sounds/notification.mp3" preload="auto"></audio>
             <script>
                 document.getElementById('notif-sound').play();
             </script>

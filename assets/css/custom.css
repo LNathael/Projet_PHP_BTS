@@ -56,19 +56,11 @@
     display: none !important;
 }
 
-/* Corps de la page */
-body {
-    background-color: var(--primary-color);
-    color: var(--text-dark);
-    font-family: Arial, sans-serif;
-}
-.navbar-dropdown {
-    display: none;
-}
 
-.navbar-dropdown.is-active {
-    display: block;
-}
+/* ===============================
+   Rupture de stock
+   =============================== */
+   
 /* Style pour les produits en rupture de stock */
 .product-card.out-of-stock {
     filter: grayscale(100%) blur(2px); /* Applique un effet de flou et de désaturation */
@@ -122,33 +114,10 @@ TEXT contour shadow
     transition: var(--transition);
 }
 .button.is-primary:hover {
-    background-color: darken(var(--bulma-primary), 10%);
-    filter: brightness(90%);
+    background-color: darken(var(--bulma-primary), 20%);
+    filter: brightness(80%);
 }
 
-/* ===============================
-   NAVBAR
-   =============================== */
-/* Agrandir la hauteur de l'en-tête */
-.navbar {
-    height: 100px; /* Augmentez la hauteur de l'en-tête */
-    display: flex;
-    align-items: center; /* Centre verticalement le contenu */
-    justify-content: space-between; /* Espace entre les éléments */
-    padding: 0 20px; /* Ajoute un espacement horizontal */
-}
-
-/* Ajuster la taille du logo */
-.brand-logo {
-    height: 80px; /* Hauteur du logo */
-    width: auto; /* Ajuste automatiquement la largeur */
-}
-
-/* Ajuster les éléments de la barre de navigation */
-.navbar-item {
-    font-size: 1.2rem; /* Augmente la taille du texte */
-    font-weight: bold; /* Met le texte en gras */
-}
 /* ===============================
    CAROUSEL
    =============================== */

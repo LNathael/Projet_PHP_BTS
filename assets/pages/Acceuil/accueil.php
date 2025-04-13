@@ -8,8 +8,8 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 $user_id = $_SESSION['user_id'];
-$isAdmin = $_SESSION['role'] === 'administrateur';
-$isSuperAdmin = $_SESSION['role'] === 'super_administrateur';
+$isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'administrateur';
+$isSuperAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'super_administrateur';
 
 $stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE id_utilisateur = :id");
 $stmt->execute(['id' => $user_id]);
@@ -49,11 +49,18 @@ $selected_video = $videos[array_rand($videos)];
     <!-- Section principale -->
     <section class="hero is-primary is-fullheight-with-navbar has-text-centered" style="position: relative; overflow: hidden;">
         <!-- Vidéo en arrière-plan -->
-        <video id="background-video" class="hero-video" autoplay muted loop >
+        <video id="background-video" class="hero-video" autoplay muted loop style="width: 100%; height: 100%; object-fit: cover; display: block;">
             <source src="../../videos/<?= htmlspecialchars($selected_video) ?>" type="video/mp4">
             Votre navigateur ne supporte pas la lecture de vidéos.
         </video>
         <!-- Contenu principal -->
+        <style>
+            @media screen and (max-width: 768px) {
+            #background-video {
+                display: none; /* Masquer la vidéo en arrière-plan sur les petits écrans */
+            }
+            }
+        </style>
         <div class="hero-body" style="position: relative; z-index: 1;">
             <div class="container">
             <h1 class="title is-size-1 has-text-white text-outline" style="font-size: 4rem; font-weight: bold;">
@@ -95,7 +102,7 @@ $selected_video = $videos[array_rand($videos)];
                 <div class="hero-body">
                     <h2 class="title is-4">Explorez nos fonctionnalités</h2>
                     <div class="buttons is-centered">
-                        <a href="../Calorie/calculateur_calories.php" class="button is-primary">Calculateur de calories</a>
+                        <a href="../Calorie/calculateur_calories.php" class="button is-info"">Calculateur de calories</a>
                         
                         <a href="../Salon/salons.php" class="button is-info">💬 Chat Communautaire</a>
                         <a href="../Journal/journal_entrainement.php" class="button is-success">Journal d'Entraînement</a>
@@ -104,7 +111,7 @@ $selected_video = $videos[array_rand($videos)];
             </section>
 
             <!-- Sous-section 2 : Produits -->
-            <section class="section products-section">
+            <section class="section products-section is-paddingless is-marginless" style="margin-top: .5rem;" >
                 <h2 class="title is-4 has-text-centered">Nos meilleurs produits</h2>
                 <div class="swiper produits-swiper">
                     <div class="swiper-wrapper">
@@ -134,7 +141,7 @@ $selected_video = $videos[array_rand($videos)];
                 </div>
             </section>
             <!-- Sous-section 3 : Recettes -->
-            <section class="section recipes-section">
+            <section class="section recipes-section is-paddingless is-marginless" style="margin-top: .5rem;" >
                 <h2 class="title is-4 has-text-centered">Nos meilleures recettes</h2>
                 <div class="swiper recettes-swiper">
                     <div class="swiper-wrapper">

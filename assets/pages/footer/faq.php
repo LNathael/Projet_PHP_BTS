@@ -19,7 +19,7 @@
 
         <h2 class="title is-4">4. Comment contacter le service client ?</h2>
         <p>
-            Vous pouvez nous contacter par email à <a href="mailto:support@projetachat.com">support@projetachat.com</a> ou par téléphone au +33 6 12 34 56 78.
+            Vous pouvez nous contacter par email à <a href="mailto:nathael.lebihan12102005@gmail.com">nathael.lebihan12102005@gmail.com</a> ou par téléphone au 07 85 79 91 62.
         </p>
     </section>
 </main>

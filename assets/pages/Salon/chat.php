@@ -71,33 +71,31 @@ $produits = $pdo->query("SELECT * FROM produits")->fetchAll();
     <div class="box" id="message-container">
         <?php foreach ($messages as $message): ?>
             <div class="message is-info role-<?= htmlspecialchars($message['role']); ?>">
-                <div class="message-header">
-                    <a href="../Connexion/profil_utilisateur.php?id=<?= $message['id_utilisateur']; ?>">
-                        <?php if ($message['photo_profil']): ?>
-                                <img src="../../<?= htmlspecialchars($message['photo_profil']); ?>" alt="Photo de profil" class="profile-image" style="border-radius: 50%; object-fit: cover;">
-
-                        <?php elseif ($message['role'] == 'administrateur'): ?>
-                            <img src="../../uploads/profils/admin.png" alt="Photo de profil" class="profile-image">
-                        <?php else: ?>
-                            <img src="../../uploads/profils/default.png" alt="Photo de profil" class="profile-image">
-                        <?php endif; ?>
-                    </a>
-                    <p><strong class="role-text-<?= htmlspecialchars($message['role']); ?>"><?= htmlspecialchars($message['prenom'] . ' ' . $message['nom']); ?>
-                    <?php
-                        switch ($message['role']) {
-                            case 'coach':
-                                echo ' (Coach)';
-                                break;
-                            case 'administrateur':
-                                echo ' (Administrateur)';
-                                break;
-                            case 'super_administrateur':
-                                echo ' (Super Administrateur)';
-                                break;
-                            case 'commercial':
-                                echo ' (Commercial)';
-                                break;
-                        }
+                <div class="message-header">  
+                <a href="../Salon/details_utilisateur.php?id_utilisateur=<?= urlencode($message['id_utilisateur']); ?>" class="popup-content">
+                <?php if ($message['photo_profil']): ?>
+                        <img src="../../<?= htmlspecialchars($message['photo_profil']); ?>" alt="Photo de profil" class="profile-image" style="border-radius: 50%; object-fit: cover;">
+                    <?php else: ?>
+                        <img src="../../uploads/profils/default.png" alt="Photo de profil par défaut" class="profile-image">
+                    <?php endif; ?>
+                </a>
+                    <p><strong class="role-text-<?= htmlspecialchars($message['role']); ?>">
+                        <?= htmlspecialchars($message['prenom'] . ' ' . $message['nom']); ?>
+                        <?php
+                            switch ($message['role']) {
+                                case 'coach':
+                                    echo ' (Coach)';
+                                    break;
+                                case 'administrateur':
+                                    echo ' (Administrateur)';
+                                    break;
+                                case 'super_administrateur':
+                                    echo ' (Super Administrateur)';
+                                    break;
+                                case 'commercial':
+                                    echo ' (Commercial)';
+                                    break;
+                            }
                         ?>
                     </strong>
                     <?php if ($message['badge']): ?>
@@ -182,7 +180,7 @@ $produits = $pdo->query("SELECT * FROM produits")->fetchAll();
         <p class="has-text-danger">Vous n'avez pas le droit d'écrire dans ce salon.</p>
     <?php endif; ?>
 
-    <a href="salons.php?id_salon=<?= urlencode($dernier_message['id_salon']); ?>" class="button is-light mt-3">Retour aux salons</a>
+    <a href="salons.php" class="button is-light mt-3">Retour aux salons</a>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const recettes = <?= json_encode($recettes); ?>;

@@ -71,14 +71,28 @@ if (isset($_GET['query']) && !empty(trim($_GET['query']))) {
             }
 
             // Générer le lien en fonction du type de contenu
-            $lien = $resultat['type'] === 'page' ? $resultat['lien'] : "../{$resultat['type']}/detail_{$resultat['type']}.php?id={$resultat['id']}";
+            if ($resultat['type'] === 'page') {
+                $lien = $resultat['lien'];
+            } else {
+                // Vérifier si le fichier existe dans le dossier spécifique
+                $specific_path = "../{$resultat['type']}/detail_{$resultat['type']}.php";
+                $blog_path = "../blog/detail_{$resultat['type']}.php";
+
+                if (file_exists($specific_path)) {
+                    $lien = "{$specific_path}?id={$resultat['id']}";
+                } elseif (file_exists($blog_path)) {
+                    $lien = "{$blog_path}?id={$resultat['id']}";
+                } else {
+                    $lien = "#"; // Lien par défaut si aucun fichier n'est trouvé
+                }
+            }
 
             echo "
-                <li>
-                    <a href='$lien' class='has-text-link'>
+                <li class='box mb-4'>
+                    <a href='$lien' class='title is-5 has-text-link'>
                         <strong>{$resultat['titre']}</strong>
                     </a>
-                    <p>$highlighted</p>
+                    <p class='is-size-6'>$highlighted</p>
                 </li>
             ";
         }
@@ -95,7 +109,12 @@ if (isset($_GET['query']) && !empty(trim($_GET['query']))) {
     echo "<h1 class='title is-4'>Veuillez saisir un terme de recherche valide.</h1>";
     echo "</main>";
 }
-
+?>
+<html>
+<main>
+</main>
+</html>
+<?php
 // Inclure le fichier footer
 include '../includes/footer.php'; 
 ?>

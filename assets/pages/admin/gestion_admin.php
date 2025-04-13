@@ -827,6 +827,8 @@ function openEditModalUser(user) {
                                         <option value="utilisateur" ${user.role === 'utilisateur' ? 'selected' : ''}>Utilisateur</option>
                                         <option value="administrateur" ${user.role === 'administrateur' ? 'selected' : ''}>Administrateur</option>
                                         <option value="super_administrateur" ${user.role === 'super_administrateur' ? 'selected' : ''}>Super Administrateur</option>
+                                        <option value="coach" <?= $utilisateur['role'] === 'coach' ? 'selected' : ''; ?>>Coach</option>
+                                        <option value="commercial" <?= $utilisateur['role'] === 'commercial' ? 'selected' : ''; ?>>Commercial</option>         
                                     </select>
                                 </div>
                             </div>

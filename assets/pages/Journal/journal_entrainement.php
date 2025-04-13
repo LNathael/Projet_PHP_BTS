@@ -141,11 +141,6 @@ $utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
                 <?php endif; ?>
             </section>
 
-            <!-- Calendrier des séances -->
-            <section class="section">
-                <h2 class="title">Calendrier des Séances</h2>
-                <div id="calendar"></div>
-            </section>
 
             <script>
                 document.addEventListener('DOMContentLoaded', function () {

@@ -27,7 +27,6 @@ $produits = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
     <!-- Styles principaux -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <link rel="stylesheet" href="../../css/custom.css">
 </head>
 <body>
     <main class="container ">
@@ -103,6 +102,7 @@ $produits = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
         <?php endif; ?>
     </div>
+    </main>
     <?php include '../includes/footer.php'; ?>
 </body>
 </html>
