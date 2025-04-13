@@ -19,7 +19,7 @@
 
 #### **2.1 Arborescence des fichiers**
 
-Projet_PHP_BT/
+`Projet_PHP_BT/
 ├── assets/
 │   ├── css/                # Fichiers CSS personnalisés
 │   ├── js/                 # Scripts JavaScript
@@ -38,7 +38,7 @@ Projet_PHP_BT/
 │   └── ...                 # Autres fichiers inclus
 ├── uploads/                # Dossier pour les fichiers téléchargés (images, etc.)
 ├── sql/                    # Scripts SQL pour la base de données
-└── index.php               # Page d'accueil
+└── index.php               # Page d'accueil`
 
 
 ---
@@ -198,4 +198,3 @@ try {
 
     * **Développeur principal : Nathael Le Bihan**
     * **Email : nathael.lebihan12102005@gmail.com**
-    * **Téléphone :** 0785799162
