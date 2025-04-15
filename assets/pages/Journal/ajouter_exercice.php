@@ -8,12 +8,7 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-// Vérifier si l'utilisateur est administrateur ou super administrateur
-$isAdmin = isset($_SESSION['role']) && ($_SESSION['role'] === 'administrateur' || $_SESSION['role'] === 'super_administrateur');
-if (!$isAdmin) {
-    header('Location: ../Connexion/connexion.php');
-    exit;
-}
+
 
 $erreurs = [];
 $nom = '';

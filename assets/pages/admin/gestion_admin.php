@@ -342,6 +342,33 @@ if (isset($_POST['valider_commande'])) {
         echo "<div class='notification is-success'>Utilisateur débloqué avec succès.</div>";
     }
 }
+
+// Supprimer un exercice
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_exercice'])) {
+    $id_exercice = intval($_POST['id_exercice']);
+
+    // Supprimer l'image associée
+    $stmt = $pdo->prepare("SELECT image_path, video_path FROM exercices WHERE id_exercice = ?");
+    $stmt->execute([$id_exercice]);
+    $exercice = $stmt->fetch();
+
+    if ($exercice) {
+        if (!empty($exercice['image_path']) && file_exists("../../" . $exercice['image_path'])) {
+            unlink("../../" . $exercice['image_path']); // Supprimer l'image
+        }
+        if (!empty($exercice['video_path']) && file_exists("../../" . $exercice['video_path'])) {
+            unlink("../../" . $exercice['video_path']); // Supprimer la vidéo
+        }
+
+        // Supprimer l'exercice de la base de données
+        $stmt = $pdo->prepare("DELETE FROM exercices WHERE id_exercice = ?");
+        $stmt->execute([$id_exercice]);
+
+        echo "<div class='notification is-success'>Exercice supprimé avec succès.</div>";
+    } else {
+        echo "<div class='notification is-danger'>Exercice introuvable.</div>";
+    }
+}
 ?>
 <?php include '../includes/header.php'; ?>
 
@@ -776,6 +803,80 @@ if (isset($_POST['valider_commande'])) {
             </tbody>
         </table>
     </section>
+    <!-- Section Gestion des Exercices -->
+<section class="section">
+    <h2 class="title is-4">Gestion des Exercices</h2>
+    <p class="subtitle">Ajoutez, modifiez ou supprimez des exercices.</p>
+
+    <!-- Bouton Ajouter un exercice -->
+    <div class="field">
+        <a href="../Journal/ajouter_exercice.php" class="button is-primary">Ajouter un exercice</a>
+    </div>
+
+    <!-- Liste des exercices -->
+    <?php
+    // Récupérer les exercices
+    try {
+        $exercices = $pdo->query("SELECT * FROM exercices ORDER BY id_exercice DESC")->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        echo "<div class='notification is-danger'>Erreur lors de la récupération des exercices : " . htmlspecialchars($e->getMessage()) . "</div>";
+        $exercices = [];
+    }
+    ?>
+
+    <?php if (!empty($exercices)): ?>
+        <table class="table is-striped is-fullwidth">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Description</th>
+                    <th>Catégorie</th>
+                    <th>Image</th>
+                    <th>Vidéo</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($exercices as $exercice): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($exercice['id_exercice']); ?></td>
+                        <td><?= htmlspecialchars($exercice['nom']); ?></td>
+                        <td><?= htmlspecialchars(substr($exercice['description'], 0, 50)) . '...'; ?></td>
+                        <td><?= htmlspecialchars($exercice['categorie'] ?? 'Non spécifiée'); ?></td>
+                        <td>
+                            <?php if (!empty($exercice['image_path']) && file_exists("../../" . $exercice['image_path'])): ?>
+                                <img src="../../<?= htmlspecialchars($exercice['image_path']); ?>" alt="Image de l'exercice" style="max-width: 100px;">
+                            <?php else: ?>
+                                <p>Aucune image</p>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <?php if (!empty($exercice['video_path']) && file_exists("../../" . $exercice['video_path'])): ?>
+                                <a href="../../<?= htmlspecialchars($exercice['video_path']); ?>" target="_blank">Voir la vidéo</a>
+                            <?php else: ?>
+                                <p>Aucune vidéo</p>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <!-- Bouton Modifier -->
+                            <a href="../Journal/modifier_exercice.php?id=<?= $exercice['id_exercice']; ?>" class="button is-link is-small">Modifier</a>
+
+                            <!-- Bouton Supprimer -->
+                            <form method="POST" style="display: inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet exercice ?');">
+                                <input type="hidden" name="id_exercice" value="<?= $exercice['id_exercice']; ?>">
+                                <button type="submit" name="delete_exercice" class="button is-danger is-small">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <p>Aucun exercice trouvé.</p>
+    <?php endif; ?>
+</section>
+
 </main>
 
 <?php include '../includes/footer.php'; ?>

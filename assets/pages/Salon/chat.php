@@ -109,12 +109,12 @@ $produits = $pdo->query("SELECT * FROM produits")->fetchAll();
                     <?php if ($message['recette_titre']): ?>
                         <div class="box mt-3">
                             <h2 class="title is-5"><?= htmlspecialchars($message['recette_titre']); ?></h2>
-                            <img src="../../../<?= htmlspecialchars($message['recette_image']); ?>" alt="Image de la recette" class="image-apercu">
+                            <img src="../../<?= htmlspecialchars($message['recette_image']); ?>" alt="Image de la recette" class="image-apercu">
                         </div>
                     <?php elseif ($message['nom_produit']): ?>
                         <div class="box mt-3">
                             <h2 class="title is-5"><?= htmlspecialchars($message['nom_produit']); ?></h2>
-                            <img src="../../../<?= htmlspecialchars($message['produit_image']); ?>" alt="Image du produit" class="image-apercu">
+                            <img src="../../<?= htmlspecialchars($message['produit_image']); ?>" alt="Image du produit" class="image-apercu">
                         </div>
                     <?php endif; ?>
                     <div class="mt-2">

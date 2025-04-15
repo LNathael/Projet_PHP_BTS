@@ -135,8 +135,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ];
             }
         }
-
-        // Insertion du programme en base
+        // Enregistrement du programme dans la base de données
+        if (empty($programme)) {
+            $message = "Aucun programme généré. Veuillez vérifier vos choix.";
+        } else {
+            $programme = array_map('trim', $programme); // Nettoyage des espaces
+        }
         try {
             $stmt = $pdo->prepare("
                 INSERT INTO programmes (id_utilisateur, objectif, frequence, niveau, programme)
@@ -149,9 +153,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'niveau' => $niveau,
                 'programme' => implode("\n", $programme), // Conversion du tableau en chaîne
             ]);
-
-            // Message de succès
-            $message = "Votre programme a été enregistré avec succès !";
+        
+            // Redirection après succès
+            header("Location: programmes_personnalises.php");
+            exit;
         } catch (PDOException $e) {
             $message = "Erreur lors de l'enregistrement du programme : " . $e->getMessage();
         }

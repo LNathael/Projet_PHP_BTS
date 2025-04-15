@@ -64,6 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
     }
 }
 ?>
+<?php include '../includes/header.php'; ?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -74,7 +75,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
     <title>Détail du Programme</title>
 </head>
 <body>
-<?php include '../includes/header.php'; ?>
 
 <main class="container">
     <section class="section">

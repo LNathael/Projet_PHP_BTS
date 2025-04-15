@@ -50,32 +50,7 @@ try {
         <?php endif; ?>
     </section>
    <!-- Section des avis -->
-   <section class="section">
-        <h2 class="title is-4">Avis des utilisateurs</h2>
-        <?php
-        // Récupérer les avis pour un programme spécifique
-        try {
-            $stmt = $pdo->prepare("SELECT * FROM avis WHERE id_programme IN (SELECT id_programme FROM programmes WHERE id_utilisateur = :id_utilisateur)");
-            $stmt->execute(['id_utilisateur' => $userId]);
-            $avis = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            die("Erreur lors de la récupération des avis : " . $e->getMessage());
-        }
-        ?>
-
-        <?php if ($avis): ?>
-            <?php foreach ($avis as $avis_item): ?>
-                <div class="box">
-                    <p><strong>Note :</strong> <?= htmlspecialchars($avis_item['note']) ?>/5</p>
-                    <p><?= nl2br(htmlspecialchars($avis_item['commentaire'])) ?></p>
-                    <p><small><em>Publié le <?= htmlspecialchars($avis_item['date_avis']) ?></em></small></p>
-                </div>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <p>Aucun avis pour vos programmes.</p>
-        <?php endif; ?>
-        <a href="../Avis/ajouter_avis.php" class="button is-link">Donner un avis</a>
-    </section>
+   
 </main>
 
 <?php include '../includes/footer.php'; ?>
