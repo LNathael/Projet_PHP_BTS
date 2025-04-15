@@ -294,24 +294,12 @@ $notifications_active = $stmt->fetchColumn();
                     <?php foreach ($programmes as $programme): ?>
                         <div class="column is-one-quarter-desktop is-half-tablet">
                             <div class="card program-card">
-                                <!-- Image du programme -->
-                                <div class="card-image">
-                                    <figure class="image is-4by3">
-                                        <?php if (!empty($programme['image'])): ?>
-                                            <img src="../../<?= htmlspecialchars($programme['image']); ?>" 
-                                                alt="<?= htmlspecialchars($programme['titre']); ?>">
-                                        <?php else: ?>
-                                            <img src="../../images/default-program.jpg" 
-                                                alt="Image par défaut">
-                                        <?php endif; ?>
-                                    </figure>
-                                </div>
                                 <!-- Contenu du programme -->
                                 <div class="card-content">
-                                    <p class="title is-5"><?= htmlspecialchars($programme['titre']); ?></p>
-                                    <p><strong>Date :</strong> <?= htmlspecialchars($programme['date_creation']); ?></p>
+                                    <p class="title is-5"><?= htmlspecialchars($programme['objectif']); ?></p>
+                                    <p><strong>Date :</strong> <?= htmlspecialchars($programme['created_at']); ?></p>
                                     <p class="description">
-                                        <?= htmlspecialchars(substr($programme['description'], 0, 100)) . '...'; ?>
+                                        <?= nl2br(htmlspecialchars($programme['programme'])); ?>
                                     </p>
                                 </div>
                                 <!-- Bouton pour voir le programme -->

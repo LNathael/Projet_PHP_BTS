@@ -15,8 +15,8 @@ $message = '';
 
 // Récupérer tous les programmes créés par l'utilisateur
 try {
-    $stmt = $pdo->prepare("SELECT * FROM user_programs WHERE user_id = :user_id ORDER BY created_at DESC");
-    $stmt->execute(['user_id' => $userId]);
+    $stmt = $pdo->prepare("SELECT * FROM programmes WHERE id_utilisateur = :id_utilisateur ORDER BY created_at DESC");
+    $stmt->execute(['id_utilisateur' => $userId]);
     $programmes = $stmt->fetchAll();
 } catch (PDOException $e) {
     die("Erreur lors de la récupération des programmes : " . $e->getMessage());
@@ -139,11 +139,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Insertion du programme en base
         try {
             $stmt = $pdo->prepare("
-                INSERT INTO user_programs (user_id, objectif, frequence, niveau, programme)
-                VALUES (:user_id, :objectif, :frequence, :niveau, :programme)
+                INSERT INTO programmes (id_utilisateur, objectif, frequence, niveau, programme)
+                VALUES (:id_utilisateur, :objectif, :frequence, :niveau, :programme)
             ");
             $stmt->execute([
-                'user_id' => $userId,
+                'id_utilisateur' => $userId,
                 'objectif' => $objectif,
                 'frequence' => $frequence,
                 'niveau' => $niveau,

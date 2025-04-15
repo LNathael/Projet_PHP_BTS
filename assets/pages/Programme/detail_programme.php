@@ -18,8 +18,8 @@ $userId = $_SESSION['user_id'];
 
 // Récupérer les détails du programme
 try {
-    $stmt = $pdo->prepare("SELECT * FROM user_programs WHERE id_programme = :id AND user_id = :user_id");
-    $stmt->execute(['id' => $programmeId, 'user_id' => $userId]);
+    $stmt = $pdo->prepare("SELECT * FROM programmes WHERE id_programme = :id AND id_utilisateur = :id_utilisateur");
+    $stmt->execute(['id' => $programmeId, 'id_utilisateur' => $userId]);
     $programme = $stmt->fetch();
     if (!$programme) {
         die("Programme non trouvé.");
@@ -36,14 +36,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
     $programmeText = trim($_POST['programme']);
 
     try {
-        $stmt = $pdo->prepare("UPDATE user_programs SET objectif = :objectif, frequence = :frequence, niveau = :niveau, programme = :programme WHERE id_programme = :id AND user_id = :user_id");
+        $stmt = $pdo->prepare("UPDATE programmes SET objectif = :objectif, frequence = :frequence, niveau = :niveau, programme = :programme WHERE id_programme = :id AND id_utilisateur = :id_utilisateur");
         $stmt->execute([
             'objectif' => $objectif,
             'frequence' => $frequence,
             'niveau' => $niveau,
             'programme' => $programmeText,
             'id' => $programmeId,
-            'user_id' => $userId,
+            'id_utilisateur' => $userId,
         ]);
         header("Location: afficher_programmes.php");
         exit;
@@ -55,8 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
 // Suppression du programme
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
     try {
-        $stmt = $pdo->prepare("DELETE FROM user_programs WHERE id_programme = :id AND user_id = :user_id");
-        $stmt->execute(['id' => $programmeId, 'user_id' => $userId]);
+        $stmt = $pdo->prepare("DELETE FROM programmes WHERE id_programme = :id AND id_utilisateur = :id_utilisateur");
+        $stmt->execute(['id' => $programmeId, 'id_utilisateur' => $userId]);
         header("Location: afficher_programmes.php");
         exit;
     } catch (PDOException $e) {
