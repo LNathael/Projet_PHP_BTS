@@ -213,30 +213,31 @@ $notifications_active = $stmt->fetchColumn();
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($commandes as $commande): ?>
-                            <tr id="commande-<?= $commande['id_commande']; ?>">
-                                <td><?= 'CMD-' . str_pad($commande['id_commande'], 6, '0', STR_PAD_LEFT); ?></td>
-                                <td><?= htmlspecialchars($commande['date_commande']); ?></td>
-                                <td><?= number_format($commande['total'], 2, ',', ' '); ?> €</td>
-                                <td><?= htmlspecialchars($commande['statut_commande']); ?></td>
-                                <td>
-                                    <?php if ($commande['statut_commande'] === 'en attente'): ?>
-                                        <form method="POST" class="delete-commande-form" data-id="<?= $commande['id_commande']; ?>" style="display: inline;">
-                                            <input type="hidden" name="id_commande" value="<?= $commande['id_commande']; ?>">
-                                            <button type="submit" name="supprimer_commande" class="button is-danger is-small">Supprimer</button>
-                                        </form>
-                                    <?php elseif ($commande['statut_commande'] === 'en expédition'): ?>
-                                        <form method="POST" style="display: inline;">
-                                            <input type="hidden" name="id_commande" value="<?= $commande['id_commande']; ?>">
-                                            <button type="submit" name="confirmer_reception" class="button is-success is-small">Confirmer réception</button>
-                                        </form>
-                                    <?php else: ?>
-                                        <span class="tag is-light">Aucune action</span>
-                                    <?php endif; ?>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
+                    <?php foreach ($commandes as $commande): ?>
+                        <tr id="commande-<?= $commande['id_commande']; ?>">
+                            <td><?= 'CMD-' . str_pad($commande['id_commande'], 6, '0', STR_PAD_LEFT); ?></td>
+                            <td><?= htmlspecialchars($commande['date_commande']); ?></td>
+                            <td><?= number_format($commande['total'], 2, ',', ' '); ?> €</td>
+                            <td><?= htmlspecialchars($commande['statut_commande']); ?></td>
+                            <td>
+                                <a href="../Panier/detail_commande.php?id_commande=<?= $commande['id_commande']; ?>" class="button is-link is-small">Voir le détail</a>
+                                <?php if ($commande['statut_commande'] === 'en attente'): ?>
+                                    <form method="POST" class="delete-commande-form" data-id="<?= $commande['id_commande']; ?>" style="display: inline;">
+                                        <input type="hidden" name="id_commande" value="<?= $commande['id_commande']; ?>">
+                                        <button type="submit" name="supprimer_commande" class="button is-danger is-small">Supprimer</button>
+                                    </form>
+                                <?php elseif ($commande['statut_commande'] === 'en expédition'): ?>
+                                    <form method="POST" style="display: inline;">
+                                        <input type="hidden" name="id_commande" value="<?= $commande['id_commande']; ?>">
+                                        <button type="submit" name="confirmer_reception" class="button is-success is-small">Confirmer réception</button>
+                                    </form>
+                                <?php else: ?>
+                                    <span class="tag is-light">Aucune action</span>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
                 </table>
             <?php else: ?>
                 <p>Vous n'avez passé aucune commande.</p>
