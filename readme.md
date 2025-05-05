@@ -10,40 +10,65 @@
   * **Base de données :** MySQL.
   * **Hébergement local :** Laragon.
 
-
 ---
-
-
 
 ### **2. Structure du projet**
 
 #### **2.1 Arborescence des fichiers**
 
-`Projet_PHP_BT/
+Projet_PHP_BT/
 ├── assets/
 │   ├── css/                # Fichiers CSS personnalisés
+│   │   └── style.css       # Fichier principal de styles
 │   ├── js/                 # Scripts JavaScript
-│   ├── pages/
+│   │   └── script.js       # Fichier principal de scripts
+│   ├── pages/              # Pages principales du projet
 │   │   ├── admin/          # Pages pour les administrateurs
+│   │   │   ├── gestion_admin.php       # Gestion des administrateurs
+│   │   │   ├── gestion_produits.php    # Gestion des produits
+│   │   │   └── gestion_commandes.php   # Gestion des commandes
 │   │   ├── Salon/          # Pages pour les salons de discussion
+│   │   │   ├── chat.php                # Chat des salons
+│   │   │   └── liste_salons.php        # Liste des salons
 │   │   ├── Connexion/      # Pages pour l'inscription et la connexion
+│   │   │   ├── connexion.php           # Page de connexion
+│   │   │   ├── inscription.php         # Page d'inscription
+│   │   │   └── compte.php              # Gestion du compte utilisateur
 │   │   ├── recettes/       # Pages pour les recettes
+│   │   │   ├── ajouter_recette.php     # Ajouter une recette
+│   │   │   ├── liste_recettes.php      # Liste des recettes
+│   │   │   └── detail_recette.php      # Détail d'une recette
 │   │   ├── produits/       # Pages pour les produits
-│   │   └── ...             # Autres pages
+│   │   │   ├── liste_produits.php      # Liste des produits
+│   │   │   └── detail_produit.php      # Détail d'un produit
+│   │   ├── Programme/      # Pages pour les programmes personnalisés
+│   │   │   ├── afficher_programmes.php # Afficher les programmes
+│   │   │   ├── detail_programme.php    # Détail d'un programme
+│   │   │   ├── programmes_personnalises.php # Création de programmes personnalisés
+│   │   │   └── programmes_debutants.php     # Programme pour débutants
+│   │   └── Panier/         # Pages pour la gestion du panier
+│   │       ├── panier.php              # Gestion du panier
+│   │       ├── validation_commande.php # Validation des commandes
+│   │       └── detail_commande.php     # Détail d'une commande
 ├── config/
 │   └── db.php              # Configuration de la base de données
 ├── includes/
 │   ├── header.php          # En-tête commun
 │   ├── footer.php          # Pied de page commun
-│   └── ...                 # Autres fichiers inclus
+│   └── session_start.php   # Gestion des sessions
 ├── uploads/                # Dossier pour les fichiers téléchargés (images, etc.)
+│   ├── produits/           # Images des produits
+│   ├── recettes/           # Images des recettes
+│   └── programmes/         # Fichiers liés aux programmes
 ├── sql/                    # Scripts SQL pour la base de données
-└── index.php               # Page d'accueil`
-
+│   ├── schema.sql          # Schéma de la base de données
+│   ├── sql_reparation.sql  # Script de réparation
+│   ├── sql_base_bonne_DB.sql # Base de données initiale
+│   └── fichier.sql         # Autres scripts SQL
+├── index.php               # Page d'accueil principale
+└── readme.md               # Documentation du projet
 
 ---
-
-
 
 ### **3. Configuration**
 
@@ -78,8 +103,56 @@ try {
 ?>
 ```
 
-
 ### **4. Fonctionnalités principales**
+---
+### ** Comment lancer le projet**
+
+
+#### Prérequis**
+
+-**Serveur local :** Installez Laragon, XAMPP ou WAMP.
+
+-**Base de données :** MySQL (inclus dans Laragon, XAMPP ou WAMP).
+
+-**Navigateur web :** Google Chrome, Firefox ou tout autre navigateur moderne.
+
+
+#### **Étapes pour lancer le projet**
+
+1.**Cloner le projet :**
+
+   - Téléchargez ou clonez le projet dans le répertoire racine de votre serveur local (par exemple, `C:/laragon/www/` pour Laragon).
+
+
+2.**Importer la base de données :**
+
+   - Ouvrez **phpMyAdmin** ou tout autre outil de gestion MySQL.
+
+   - Créez une base de données nommée `projet_php_bts`.
+
+   - Importez le fichier SQL initial : `sql/sql_base_bonne_DB.sql`.
+
+
+3.**Configurer la connexion à la base de données :**
+
+   - Ouvrez le fichier `config/db.php`.
+
+   - Vérifiez que les paramètres (`$host`, `$dbname`, `$username`, `$password`) correspondent à votre configuration locale.
+
+
+4.**Lancer le serveur local :**
+
+   - Démarrez Laragon, XAMPP ou WAMP.
+
+   - Accédez à l'URL suivante dans votre navigateur : `http://localhost/Projet_PHP_BT/`.
+
+
+5.**Tester le projet :**
+
+   - Connectez-vous avec un compte utilisateur ou administrateur (si des comptes de test sont inclus dans la base de données).
+
+   - Explorez les fonctionnalités (connexion, gestion des produits, commandes, etc.).
+---
 
 #### **4.1 Gestion des utilisateurs**
 
@@ -127,7 +200,6 @@ try {
   * Validation des commandes par les administrateurs.
   * Suivi des statuts des commandes.
 
----
 
 ### **5. Sécurité**
 
@@ -142,6 +214,7 @@ try {
   #### **5.2 Protection contre les injections SQL**
 
 
+  * 
   * Utilisation de requêtes préparées avec PDO :
 
     ```
