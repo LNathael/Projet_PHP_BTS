@@ -23,6 +23,9 @@ Projet_PHP_BT/
 │   ├── js/                 # Scripts JavaScript
 │   │   └── script.js       # Fichier principal de scripts
 │   ├── pages/              # Pages principales du projet
+│   │   ├── Acceuil/              # Pages principales du projet
+│   │   │   ├── accueil.php           # Page de connexion
+│   │   │   └── index.php               # Page d'accueil principale
 │   │   ├── admin/          # Pages pour les administrateurs
 │   │   │   ├── gestion_admin.php       # Gestion des administrateurs
 │   │   │   ├── gestion_produits.php    # Gestion des produits
@@ -65,7 +68,7 @@ Projet_PHP_BT/
 │   ├── sql_reparation.sql  # Script de réparation
 │   ├── sql_base_bonne_DB.sql # Base de données initiale
 │   └── fichier.sql         # Autres scripts SQL
-├── index.php               # Page d'accueil principale
+
 └── readme.md               # Documentation du projet
 
 ---
@@ -104,9 +107,10 @@ try {
 ```
 
 ### **4. Fonctionnalités principales**
----
-### ** Comment lancer le projet**
 
+---
+
+### ** Comment lancer le projet**
 
 #### Prérequis**
 
@@ -116,42 +120,33 @@ try {
 
 -**Navigateur web :** Google Chrome, Firefox ou tout autre navigateur moderne.
 
-
 #### **Étapes pour lancer le projet**
 
 1.**Cloner le projet :**
 
-   - Téléchargez ou clonez le projet dans le répertoire racine de votre serveur local (par exemple, `C:/laragon/www/` pour Laragon).
-
+- Téléchargez ou clonez le projet dans le répertoire racine de votre serveur local (par exemple, `C:/laragon/www/` pour Laragon).
 
 2.**Importer la base de données :**
 
-   - Ouvrez **phpMyAdmin** ou tout autre outil de gestion MySQL.
-
-   - Créez une base de données nommée `projet_php_bts`.
-
-   - Importez le fichier SQL initial : `sql/sql_base_bonne_DB.sql`.
-
+- Ouvrez **phpMyAdmin** ou tout autre outil de gestion MySQL.
+- Créez une base de données nommée `projet_php_bts`.
+- Importez le fichier SQL initial : `sql/sql_base_bonne_DB.sql`.
 
 3.**Configurer la connexion à la base de données :**
 
-   - Ouvrez le fichier `config/db.php`.
-
-   - Vérifiez que les paramètres (`$host`, `$dbname`, `$username`, `$password`) correspondent à votre configuration locale.
-
+- Ouvrez le fichier `config/db.php`.
+- Vérifiez que les paramètres (`$host`, `$dbname`, `$username`, `$password`) correspondent à votre configuration locale.
 
 4.**Lancer le serveur local :**
 
-   - Démarrez Laragon, XAMPP ou WAMP.
-
-   - Accédez à l'URL suivante dans votre navigateur : `http://localhost/Projet_PHP_BT/`.
-
+- Démarrez Laragon, XAMPP ou WAMP.
+- Accédez à l'URL suivante dans votre navigateur : `http://localhost/Projet_PHP_BT/`.
 
 5.**Tester le projet :**
 
-   - Connectez-vous avec un compte utilisateur ou administrateur (si des comptes de test sont inclus dans la base de données).
+- Connectez-vous avec un compte utilisateur ou administrateur (si des comptes de test sont inclus dans la base de données).
+- Explorez les fonctionnalités (connexion, gestion des produits, commandes, etc.).
 
-   - Explorez les fonctionnalités (connexion, gestion des produits, commandes, etc.).
 ---
 
 #### **4.1 Gestion des utilisateurs**
@@ -199,7 +194,6 @@ try {
 * **Description :**
   * Validation des commandes par les administrateurs.
   * Suivi des statuts des commandes.
-
 
 ### **5. Sécurité**
 
