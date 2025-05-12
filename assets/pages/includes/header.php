@@ -8,7 +8,7 @@ if (isset($_SESSION['user_id'])) {
     $userRole = $stmt->fetchColumn();
 
     $isAdmin = $userRole === 'administrateur';
-    $isSuperAdmin = $userRole === 'super_admin';
+    $isSuperAdmin = $userRole === 'super_administrateur'; // Vérifiez que cette ligne est correcte
 } else {
     $isAdmin = false;
     $isSuperAdmin = false;
@@ -160,8 +160,8 @@ if (isset($_POST['supprimer_commande'])) {
                             <a class="navbar-link" id="user-name"><?= htmlspecialchars($user['prenom'] . ' ' . $user['nom']) ?></a>
                             <div class="navbar-dropdown">
                                 <?php if ($isAdmin || $isSuperAdmin): ?>
-                                        <a href="../admin/gestion_admin.php" class="navbar-item is-selected">Espace Admin</a>
-                                        <hr class="navbar-divider">
+                                    <a href="../admin/gestion_admin.php" class="navbar-item is-selected">Espace Admin</a>
+                                    <hr class="navbar-divider">
                                 <?php endif; ?>
                                 <a href="../Connexion/compte.php" class="navbar-item ">Profil</a>
                                 <a href="../Avis/avis.php" class="navbar-item">Avis</a>

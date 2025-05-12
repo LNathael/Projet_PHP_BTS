@@ -1,4 +1,5 @@
-<?php 
+<?php
+ob_start(); // Active la mise en tampon de sortie
 session_start();
 
 include '../includes/header.php'; // Remonte d'un niveau depuis "pages/"

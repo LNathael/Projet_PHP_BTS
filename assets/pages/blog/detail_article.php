@@ -27,7 +27,6 @@ if (!$article) {
     <title><?= htmlspecialchars($article['titre']); ?></title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
-
 <main class="container mt-5">
     <h1 class="title is-3"><?= htmlspecialchars($article['titre']); ?></h1>
     <p class="is-size-6 has-text-grey">

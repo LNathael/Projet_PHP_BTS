@@ -69,7 +69,6 @@ $selected_video = $videos[array_rand($videos)];
             <p class="subtitle is-size-3 has-text-white text-outline" style="font-size: 1.5rem;">
                 Votre plateforme de fitness et de nutrition.
             </p>
-
                 <a href="#sous-sections" class="button is-primary is-large is-rounded">Découvrir NutriStrong</a>
             </div>
         </div>
@@ -102,10 +101,10 @@ $selected_video = $videos[array_rand($videos)];
                 <div class="hero-body">
                     <h2 class="title is-4">Explorez nos fonctionnalités</h2>
                     <div class="buttons is-centered">
-                        <a href="../Calorie/calculateur_calories.php" class="button is-info"">Calculateur de calories</a>
+                        <a href="../Calorie/calculateur_calories.php" class="button is-info""> 🥤Calculateur de calories</a>
                         
                         <a href="../Salon/salons.php" class="button is-info">💬 Chat Communautaire</a>
-                        <a href="../Journal/journal_entrainement.php" class="button is-success">Journal d'Entraînement</a>
+                        <a href="../Journal/journal_entrainement.php" class="button is-success"> 📋 Journal d'Entraînement</a>
                     </div>
                 </div>
             </section>

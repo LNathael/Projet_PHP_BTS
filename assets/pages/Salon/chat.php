@@ -47,20 +47,15 @@ $produits = $pdo->query("SELECT * FROM produits")->fetchAll();
 <head>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
-        .role-utilisateur { background-color: #f0f0f0; }
-        .role-administrateur { background-color: #d9534f; }
-        .role-super_administrateur { background-color: #c9302c; }
-        .role-coach { background-color: #5cb85c; }
-        .role-commercial { background-color: #5bc0de; }
         .image-apercu { max-width: 150px; max-height: 150px; }
-        .role-text-utilisateur { color: #000; }
+        .role-text-utilisateur { color: #FFF; }
         .role-text-administrateur { color: #d9534f; }
         .role-text-super_administrateur { color: #c9302c; }
-        .role-text-coach { color: #5cb85c; }
+        .role-text-coach { color:rgb(129, 208, 129); }
         .role-text-commercial { color: #5bc0de; }
         .profile-image { width: 50px; height: 50px; border-radius: 50%; }
         .mention { color: #007bff; cursor: pointer; }
-        .badge { background-color: #ffdd57; padding: 2px 5px; border-radius: 3px; margin-left: 5px; }
+        .badge { -color: #ffdd57; padding: 2px 5px; border-radius: 3px; margin-left: 5px; }
     </style>
 </head>
 <main>
@@ -79,7 +74,8 @@ $produits = $pdo->query("SELECT * FROM produits")->fetchAll();
                         <img src="../../uploads/profils/default.png" alt="Photo de profil par défaut" class="profile-image">
                     <?php endif; ?>
                 </a>
-                    <p><strong class="role-text-<?= htmlspecialchars($message['role']); ?>">
+                    <p>
+                        <p class="role-text-<?= htmlspecialchars($message['role']);?>">
                         <?= htmlspecialchars($message['prenom'] . ' ' . $message['nom']); ?>
                         <?php
                             switch ($message['role']) {
@@ -97,7 +93,8 @@ $produits = $pdo->query("SELECT * FROM produits")->fetchAll();
                                     break;
                             }
                         ?>
-                    </strong>
+                    
+                    </p>
                     <?php if ($message['badge']): ?>
                         <span class="badge"><?= htmlspecialchars($message['badge']); ?></span>
                     <?php endif; ?>

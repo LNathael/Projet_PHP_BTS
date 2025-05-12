@@ -28,23 +28,43 @@ if ($isSuperAdmin && isset($_POST['delete_user'])) {
 }
 
 // Modifier un utilisateur
-if ($isSuperAdmin && isset($_POST['edit_user'])) {
+if (isset($_POST['edit_user'])) {
     $id_utilisateur = (int)$_POST['id_utilisateur'];
     $nom = htmlspecialchars($_POST['nom']);
     $prenom = htmlspecialchars($_POST['prenom']);
     $email = htmlspecialchars($_POST['email']);
     $role = $_POST['role'];
 
-    if ($role !== 'super_administrateur' || $isSuperAdmin) { // Empêche la modification du rôle super administrateur
-        $stmt = $pdo->prepare("UPDATE utilisateurs SET nom = :nom, prenom = :prenom, email = :email, role = :role WHERE id_utilisateur = :id");
-        $stmt->execute([
-            'nom' => $nom,
-            'prenom' => $prenom,
-            'email' => $email,
-            'role' => $role,
-            'id' => $id_utilisateur,
-        ]);
+    // Vérifier si l'utilisateur connecté est un administrateur ou un super administrateur
+    $stmt = $pdo->prepare("SELECT role FROM utilisateurs WHERE id_utilisateur = :id");
+    $stmt->execute(['id' => $id_utilisateur]);
+    $userToEdit = $stmt->fetch();
+
+    if ($_SESSION['role'] === 'administrateur') {
+        // Les administrateurs ne peuvent pas modifier les rôles "administrateur" ou "super_administrateur"
+        if ($userToEdit['role'] === 'administrateur' || $userToEdit['role'] === 'super_administrateur') {
+            echo "<script>alert('Vous ne pouvez pas modifier le rôle d\'un administrateur ou d\'un super administrateur.');</script>";
+            exit;
+        }
+
+        // Les administrateurs ne peuvent pas attribuer les rôles "administrateur" ou "super_administrateur"
+        if ($role === 'administrateur' || $role === 'super_administrateur') {
+            echo "<script>alert('Vous ne pouvez pas attribuer le rôle d\'administrateur ou de super administrateur.');</script>";
+            exit;
+        }
     }
+
+    // Mise à jour de l'utilisateur
+    $stmt = $pdo->prepare("UPDATE utilisateurs SET nom = :nom, prenom = :prenom, email = :email, role = :role WHERE id_utilisateur = :id");
+    $stmt->execute([
+        'nom' => $nom,
+        'prenom' => $prenom,
+        'email' => $email,
+        'role' => $role,
+        'id' => $id_utilisateur,
+    ]);
+
+    echo "<script>alert('Utilisateur modifié avec succès.');</script>";
 }
 
 // Création d'un administrateur par le super administrateur
@@ -263,13 +283,13 @@ $produitsPlusVus = $pdo->query("SELECT * FROM produits ORDER BY vues DESC LIMIT 
 
 // Récupérer les 5 recettes les plus consultées
 $recettesPlusVues = $pdo->query("SELECT * FROM recettes ORDER BY vues DESC LIMIT 5")->fetchAll(PDO::FETCH_ASSOC);
-
+// Inclure l'autoloader de Composer
 $autoloadPath = realpath('../../../vendor/autoload.php');
 if (!$autoloadPath) {
     die('Le fichier autoload.php est introuvable. Chemin vérifié : ' . realpath('../../vendor/'));
 }
 require $autoloadPath;
-
+// Envoyer un email de validation de commande
 if (isset($_POST['valider_commande'])) {
     $id_commande = (int)$_POST['id_commande'];
 
@@ -884,13 +904,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_exercice'])) {
 <script>
     // Fonction pour afficher le modal de modification des utilisateurs
 function openEditModalUser(user) {
-    // Vérifier si un modal existe déjà et le supprimer
-    const existingModal = document.getElementById("editUserModal");
-    if (existingModal) {
-        existingModal.remove();
-    }
+    const isSuperAdmin = <?= json_encode($_SESSION['role'] === 'super_administrateur'); ?>;
 
-    // Créer le contenu du modal
     const modalContent = `
         <div id="editUserModal" class="modal is-active">
             <div class="modal-background" onclick="closeModal('editUserModal')"></div>
@@ -926,10 +941,12 @@ function openEditModalUser(user) {
                                 <div class="select">
                                     <select name="role" required>
                                         <option value="utilisateur" ${user.role === 'utilisateur' ? 'selected' : ''}>Utilisateur</option>
-                                        <option value="administrateur" ${user.role === 'administrateur' ? 'selected' : ''}>Administrateur</option>
-                                        <option value="super_administrateur" ${user.role === 'super_administrateur' ? 'selected' : ''}>Super Administrateur</option>
-                                        <option value="coach" <?= $utilisateur['role'] === 'coach' ? 'selected' : ''; ?>>Coach</option>
-                                        <option value="commercial" <?= $utilisateur['role'] === 'commercial' ? 'selected' : ''; ?>>Commercial</option>         
+                                        <option value="coach" ${user.role === 'coach' ? 'selected' : ''}>Coach</option>
+                                        <option value="commercial" ${user.role === 'commercial' ? 'selected' : ''}>Commercial</option>
+                                        ${isSuperAdmin ? `
+                                            <option value="administrateur" ${user.role === 'administrateur' ? 'selected' : ''}>Administrateur</option>
+                                            <option value="super_administrateur" ${user.role === 'super_administrateur' ? 'selected' : ''}>Super Administrateur</option>
+                                        ` : ''}
                                     </select>
                                 </div>
                             </div>
@@ -944,7 +961,6 @@ function openEditModalUser(user) {
         </div>
     `;
 
-    // Insérer le modal dans le DOM
     document.body.insertAdjacentHTML("beforeend", modalContent);
 }
 
