@@ -146,7 +146,7 @@ try {
 
 - Connectez-vous avec un compte utilisateur ou administrateur (si des comptes de test sont inclus dans la base de données).
   - compte SuperAdmin : alice.dupont@superadmin.com || MDP : password123
-- - compte admin : xarunax69@gmail.com  || MDP : Xarunax1216__#
+- - compte admin ( compte remplie par des donnes ): xarunax69@gmail.com  || MDP : Xarunax1216__#
   - Compte utilisateur : vous pouvez le crée par la page [inscription.php]()
 - Explorez les fonctionnalités (connexion, gestion des produits, commandes, etc.).
 

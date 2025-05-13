@@ -98,9 +98,9 @@ CREATE TABLE IF NOT EXISTS `commandes` (
   PRIMARY KEY (`id_commande`),
   KEY `id_utilisateur` (`id_utilisateur`),
   CONSTRAINT `commandes_ibfk_1` FOREIGN KEY (`id_utilisateur`) REFERENCES `utilisateurs` (`id_utilisateur`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table projet_php_.commandes : ~11 rows (environ)
+-- Listage des données de la table projet_php_.commandes : ~12 rows (environ)
 DELETE FROM `commandes`;
 INSERT INTO `commandes` (`id_commande`, `id_utilisateur`, `date_commande`, `statut_commande`, `total`) VALUES
 	(1, 1, '2025-03-31 13:07:30', 'validée', 40000.00),
@@ -129,9 +129,9 @@ CREATE TABLE IF NOT EXISTS `details_commande` (
   KEY `id_produit` (`id_produit`),
   CONSTRAINT `details_commande_ibfk_1` FOREIGN KEY (`id_commande`) REFERENCES `commandes` (`id_commande`) ON DELETE CASCADE,
   CONSTRAINT `details_commande_ibfk_2` FOREIGN KEY (`id_produit`) REFERENCES `produits` (`id_produit`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table projet_php_.details_commande : ~4 rows (environ)
+-- Listage des données de la table projet_php_.details_commande : ~5 rows (environ)
 DELETE FROM `details_commande`;
 INSERT INTO `details_commande` (`id_detail_commande`, `id_commande`, `id_produit`, `quantite`, `prix_unitaire`) VALUES
 	(5, 11, 11, 2, 24.90),
@@ -150,9 +150,9 @@ CREATE TABLE IF NOT EXISTS `entrainements` (
   PRIMARY KEY (`id_entrainement`),
   KEY `id_utilisateur` (`id_utilisateur`),
   CONSTRAINT `entrainements_ibfk_1` FOREIGN KEY (`id_utilisateur`) REFERENCES `utilisateurs` (`id_utilisateur`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table projet_php_.entrainements : ~20 rows (environ)
+-- Listage des données de la table projet_php_.entrainements : ~18 rows (environ)
 DELETE FROM `entrainements`;
 INSERT INTO `entrainements` (`id_entrainement`, `titre`, `id_utilisateur`, `date`, `description`) VALUES
 	(1, '', 1, '2025-03-21', 'Entraînement de musculation'),
@@ -188,7 +188,7 @@ CREATE TABLE IF NOT EXISTS `exercices` (
   `video_path` varchar(255) DEFAULT NULL,
   `categorie` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_exercice`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Listage des données de la table projet_php_.exercices : ~16 rows (environ)
 DELETE FROM `exercices`;
@@ -236,9 +236,9 @@ CREATE TABLE IF NOT EXISTS `messages` (
   CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`id_salon`) REFERENCES `salons` (`id_salon`) ON DELETE CASCADE,
   CONSTRAINT `messages_ibfk_3` FOREIGN KEY (`id_recette`) REFERENCES `recettes` (`id_recette`) ON DELETE SET NULL,
   CONSTRAINT `messages_ibfk_4` FOREIGN KEY (`id_produit`) REFERENCES `produits` (`id_produit`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table projet_php_.messages : ~32 rows (environ)
+-- Listage des données de la table projet_php_.messages : ~12 rows (environ)
 DELETE FROM `messages`;
 INSERT INTO `messages` (`id_message`, `id_utilisateur`, `id_salon`, `contenu`, `date_message`, `id_recette`, `id_produit`, `reply_to`) VALUES
 	(1, 1, 1, 'test', '2025-03-21 10:44:08', NULL, NULL, NULL),
@@ -286,9 +286,9 @@ CREATE TABLE IF NOT EXISTS `panier` (
   KEY `id_produit` (`id_produit`),
   CONSTRAINT `panier_ibfk_1` FOREIGN KEY (`id_utilisateur`) REFERENCES `utilisateurs` (`id_utilisateur`) ON DELETE CASCADE,
   CONSTRAINT `panier_ibfk_2` FOREIGN KEY (`id_produit`) REFERENCES `produits` (`id_produit`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table projet_php_.panier : ~3 rows (environ)
+-- Listage des données de la table projet_php_.panier : ~2 rows (environ)
 DELETE FROM `panier`;
 INSERT INTO `panier` (`id_panier`, `id_utilisateur`, `id_produit`, `quantite`, `date_ajout`) VALUES
 	(44, 10, 11, 1, '2025-05-05 09:00:11'),
@@ -313,7 +313,7 @@ CREATE TABLE IF NOT EXISTS `produits` (
 DELETE FROM `produits`;
 INSERT INTO `produits` (`id_produit`, `nom_produit`, `description`, `prix`, `quantite_disponible`, `libelle`, `image`, `vues`, `date_creation`) VALUES
 	(10, 'NutriStrong Whey Pro – Chocolat Intense', 'NutriStrong Whey Pro – Chocolat Intense est une protéine de lactosérum premium, formulée pour maximiser la prise de muscle et accélérer la récupération musculaire.\r\n✔️ 25g de protéines par portion\r\n✔️ Faible en sucre et sans gluten\r\n✔️ Idéal en post-entraînement ou en collation\r\n✔️ Goût chocolat onctueux sans arrière-goût chimique\r\n\r\nParfait pour les sportifs exigeants qui veulent des résultats visibles tout en se régalant !', 29.90, 0, 'Protéine en poudre – Prise de masse &amp; récupération', 'uploads/produits/produit_67efc9e539b6a.png', 36, '2025-04-04 12:00:37'),
-	(11, 'NutriStrong Burner X – Brûleur de graisses naturel', 'NutriStrong Burner X est un brûleur de graisses 100% naturel, conçu pour t’aider à sculpter ton corps et améliorer ton métabolisme.\r\n🔸 Formule thermogénique à base de thé vert, caféine et L-carnitine\r\n🔸 Favorise la combustion des graisses et augmente l’énergie\r\n🔸 Idéal en phase de sèche ou de recomposition corporelle\r\n🔸 Sans effets secondaires, sans OGM\r\n\r\n💥 Combine-le à un entraînement régulier pour des résultats optimaux !\r\n\r\n', 24.90, 201, 'Complément alimentaire – Définition musculaire &amp; perte de poids', 'uploads/produits/produit_67efd2bf268df.png', 36, '2025-04-04 12:38:23'),
+	(11, 'NutriStrong Burner X – Brûleur de graisses naturel', 'NutriStrong Burner X est un brûleur de graisses 100% naturel, conçu pour t’aider à sculpter ton corps et améliorer ton métabolisme.\r\n🔸 Formule thermogénique à base de thé vert, caféine et L-carnitine\r\n🔸 Favorise la combustion des graisses et augmente l’énergie\r\n🔸 Idéal en phase de sèche ou de recomposition corporelle\r\n🔸 Sans effets secondaires, sans OGM\r\n\r\n💥 Combine-le à un entraînement régulier pour des résultats optimaux !\r\n\r\n', 24.90, 201, 'Complément alimentaire – Définition musculaire &amp; perte de poids', 'uploads/produits/produit_67efd2bf268df.png', 37, '2025-04-04 12:38:23'),
 	(12, 'NutriStrong Creatine Pure – Monohydrate Micronisée', 'NutriStrong Creatine Pure est une créatine monohydrate 100% pure et micronisée, conçue pour améliorer la force explosive, la congestion musculaire et la performance à l&#039;entraînement.\r\n\r\n🔹 5g de créatine pure par dose\r\n🔹 Améliore les performances sur les efforts courts et intenses\r\n🔹 Micronisation ultra-fine pour une meilleure absorption\r\n🔹 Sans arômes, sans additifs, se mélange facilement à n’importe quelle boisson\r\n\r\n📈 Idéale pour les cycles de prise de masse ou de force.', 19.90, 119, 'Créatine en poudre – Force &amp; performance', 'uploads/produits/produit_67efd5d02851c.png', 15, '2025-04-04 12:51:28'),
 	(13, 'NutriStrong SVO Bar – Choco-Noisette Crunch', 'NutriStrong SVO Bar est une barre protéinée gourmande et équilibrée, conçue pour les sportifs en quête de snacks pratiques et sains.\r\n\r\n🥜 18g de protéines\r\n🍫 Saveur chocolat-noisette avec éclats croquants\r\n💪 Faible en sucre – Riche en fibres\r\n⏱️ Idéale en collation post-training ou au goûter\r\n\r\nUne vraie alternative aux barres classiques, sans compromis entre plaisir et nutrition !\r\n\r\n', 2.50, 300, 'Barre protéinée – Encas sain &amp; gourmand', 'uploads/produits/produit_67efd720dc0e3.png', 10, '2025-04-04 12:57:04'),
 	(14, 'NutriStrong Green Boost – Complexe de Superaliments', 'NutriStrong Green Boost est un mélange de superaliments verts, idéal pour renforcer ta vitalité, soutenir ta récupération et améliorer ta digestion au quotidien.\r\n\r\n🌱 Spiruline, chlorella, épinards, brocoli, thé vert, maca...\r\n🧠 Riche en antioxydants, vitamines et minéraux\r\n💚 Aide à l’élimination des toxines\r\n💪 Renforce l’immunité et le tonus naturel\r\n\r\nÀ prendre le matin dans un smoothie, un jus ou simplement avec de l’eau.', 21.90, 99, 'Mélange de superfoods – Vitalité &amp; récupération', 'uploads/produits/produit_67efd95fe4e19.png', 1, '2025-04-04 13:06:39'),
@@ -340,9 +340,9 @@ CREATE TABLE IF NOT EXISTS `programmes` (
   PRIMARY KEY (`id_programme`),
   KEY `fk_user_programs_user` (`id_utilisateur`) USING BTREE,
   CONSTRAINT `fk_user_programs_user` FOREIGN KEY (`id_utilisateur`) REFERENCES `utilisateurs` (`id_utilisateur`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table projet_php_.programmes : ~16 rows (environ)
+-- Listage des données de la table projet_php_.programmes : ~15 rows (environ)
 DELETE FROM `programmes`;
 INSERT INTO `programmes` (`id_programme`, `id_utilisateur`, `objectif`, `frequence`, `niveau`, `programme`, `created_at`, `updated_at`) VALUES
 	(1, 2, 'perte de poids', 4, 'débutant', 'Lundi : Cardio léger (marche rapide, vélo 30 min)\r\nMercredi : Renforcement musculaire avec poids légers\r\nVendredi : Yoga ou stretching', '2025-01-05 19:16:33', '2025-01-05 19:16:41'),
@@ -424,9 +424,9 @@ CREATE TABLE IF NOT EXISTS `seance_exercice` (
   PRIMARY KEY (`id_seance_exercice`),
   KEY `id_entrainement` (`id_entrainement`),
   CONSTRAINT `seance_exercice_ibfk_1` FOREIGN KEY (`id_entrainement`) REFERENCES `entrainements` (`id_entrainement`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table projet_php_.seance_exercice : ~6 rows (environ)
+-- Listage des données de la table projet_php_.seance_exercice : ~7 rows (environ)
 DELETE FROM `seance_exercice`;
 INSERT INTO `seance_exercice` (`id_seance_exercice`, `id_entrainement`, `id_exercice`, `poids`, `repetitions`, `series`, `ressenti`, `date`) VALUES
 	(1, 1, 0, 50, 10, 0, NULL, '2025-03-21'),
@@ -465,9 +465,9 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
   PRIMARY KEY (`id_utilisateur`),
   UNIQUE KEY `email` (`email`),
   CONSTRAINT `check_role` CHECK ((`role` in (_utf8mb4'utilisateur',_utf8mb4'administrateur',_utf8mb4'super_administrateur',_utf8mb4'coach',_utf8mb4'commercial')))
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table projet_php_.utilisateurs : ~10 rows (environ)
+-- Listage des données de la table projet_php_.utilisateurs : ~7 rows (environ)
 DELETE FROM `utilisateurs`;
 INSERT INTO `utilisateurs` (`id_utilisateur`, `nom`, `prenom`, `email`, `bio`, `objectifs_fitness`, `objectif`, `mot_de_passe`, `role`, `date_naissance`, `sexe`, `date_creation`, `photo_profil`, `badge`, `tentatives`, `bloque`, `dernier_echec`, `notifications_active`) VALUES
 	(1, 'Le Bihan', 'Nathaël', 'xarunax69@gmail.com', '', '', '', '$2y$10$j3VjdNMrOq4gyFpKUDs9MOOLRbT4oCohOvzD.TFOhgz17joIST1Oy', 'administrateur', '2005-10-12', 'Homme', '2024-12-11 20:54:21', 'uploads/profils/Fichier_000.png', NULL, 0, 0, '2025-04-11 13:29:01', 0),
